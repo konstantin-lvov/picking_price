@@ -31,4 +31,4 @@ public class Output_of_results {
 		res.appendText("================================================\n");
 	}
 
-}
+}//

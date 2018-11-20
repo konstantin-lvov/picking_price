@@ -144,4 +144,4 @@ public class Calculation_algorithm {
 		return fix;
 	}
 
-}
+}//

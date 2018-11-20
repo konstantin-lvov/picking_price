@@ -133,4 +133,4 @@ public class Stuff {
 	public void setLastStuff(boolean lastStuff) {
 		this.lastStuff = lastStuff;
 	}
-}
+}//
