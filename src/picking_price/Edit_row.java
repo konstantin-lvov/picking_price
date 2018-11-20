@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 public class Edit_row {
 	private Stage stage = new Stage();
+	private StringTokenizer strt;
 	private Delete_row dr = new Delete_row();
 	private String tempName;
 	private double tempPrice = 0;
@@ -82,14 +83,14 @@ public class Edit_row {
 			}
 		});
 
-		Button ok = new Button("Okey");
+		Button ok = new Button("Ok");
 		Button cancel = new Button("Cancel");
 
 		ok.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				try {
-					StringTokenizer strt = new StringTokenizer(tempName, " ");
+					strt = new StringTokenizer(tempName, " ");
 					while (strt.hasMoreTokens()) {
 						strt.nextToken();
 						count++;
@@ -99,12 +100,12 @@ public class Edit_row {
 							throw new Exception();
 						}
 					}
-					// что будет если не выкенется исключение
 						ob.get(rowInd).setName(tempName);
 						ob.get(rowInd).setPrice(tempPrice);
 						ob.get(rowInd).setCanDivide(tempDivide);
 						dr.deleteRowFromFile(ob);
 						table.refresh();
+						count = 0;
 						stage.hide();
 
 				} catch (Exception e) {
@@ -141,7 +142,7 @@ public class Edit_row {
 		root.getChildren().addAll(first, second, third, forth);
 		Scene scene = new Scene(root, 300, 250);
 		stage.initOwner(st);
-		stage.setTitle("Редактирование");
+		stage.setTitle("Редактировать");
 		stage.setScene(scene);
 		stage.initModality(Modality.WINDOW_MODAL);
 

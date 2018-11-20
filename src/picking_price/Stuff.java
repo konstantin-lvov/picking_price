@@ -19,7 +19,6 @@ public class Stuff {
 		this.price = price;
 	}
 
-	// надо реализовать чтение из файла необходимых параметров
 	public String readFromFile(String id, int lineValue) throws Exception {
 		int line = 0;
 		String temp = "";
@@ -83,7 +82,6 @@ public class Stuff {
 		return temp;
 	}
 
-	// необходимо реализовать добавление в файл необходимых параметров
 	public void addToFile(String id, String value) {
 
 	}

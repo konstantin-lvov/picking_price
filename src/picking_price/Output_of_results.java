@@ -20,6 +20,7 @@ public class Output_of_results {
 						stuffArr.get(i).getPrice(), stuffArr.get(i).getHowMuch(),
 						cost, order.getDifference(), (cost+order.getDifference()));
 				res.appendText(temp);
+				stuffArr.get(i).setLastStuff(false);
 			} else {
 				temp = String.format("%-18s%-20.2f%-20.2f%-20.2f%n", stuffArr.get(i).getName(),
 						stuffArr.get(i).getPrice(), stuffArr.get(i).getHowMuch(),

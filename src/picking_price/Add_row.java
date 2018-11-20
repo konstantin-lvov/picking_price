@@ -2,7 +2,7 @@ package picking_price;
 
 import java.util.StringTokenizer;
 
-import javafx.beans.value.ChangeListener;//
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 public class Add_row {
 	private Stage stage = new Stage();
+	private StringTokenizer strt;
 	private Delete_row dr = new Delete_row();
 	private String tempName;
 	private double tempPrice = 0;
@@ -36,15 +37,10 @@ public class Add_row {
 	Label lDivide = new Label("Весовой товар: ");
 	CheckBox cbDivide = new CheckBox();
 
-	public void addRowWindow(ObservableList<Stuff> ob, Stage st, TableView table, int ri ) {
+	public void addRowWindow(ObservableList<Stuff> ob, Stage st, TableView table, int ri) {
 		rowInd = ri;
-		
-		
+
 		VBox root = new VBox();
-
-		
-
-		
 
 		tfName.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -83,14 +79,14 @@ public class Add_row {
 			}
 		});
 
-		Button ok = new Button("Okey");
+		Button ok = new Button("Ok");
 		Button cancel = new Button("Cancel");
 
 		ok.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				try {
-					StringTokenizer strt = new StringTokenizer(tempName, " ");
+					strt = new StringTokenizer(tempName, " ");
 					while (strt.hasMoreTokens()) {
 						strt.nextToken();
 						count++;
@@ -100,28 +96,29 @@ public class Add_row {
 							throw new Exception();
 						}
 					}
-					// ÷òî áóäåò åñëè íå âûêåíåòñÿ èñêëþ÷åíèå
-				
+
 					if (!tempName.isEmpty() & tempPrice != 0) {
 						ob.add(new Stuff(tempName, tempDivide, tempPrice));
 						dr.deleteRowFromFile(ob);
+						count = 0;
 						stage.hide();
 					} else {
-						if(tempName.isEmpty()) {
+						if (tempName.isEmpty()) {
 							nameFail = true;
 						}
-						if(tempPrice != 0) {
+						if (tempPrice != 0) {
 							priceFail = true;
 						}
 						throw new Exception();
 					}
-					
 
 				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
 					if (nameFail) {
 						tfName.setStyle("-fx-text-inner-color: red;");
 					}
-					if (nameFail) {
+					if (priceFail) {
 						tfPrice.setStyle("-fx-text-inner-color: red;");
 					}
 				}
@@ -130,8 +127,7 @@ public class Add_row {
 		cancel.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				
-				
+
 				stage.hide();
 			}
 		});
@@ -152,17 +148,20 @@ public class Add_row {
 		root.getChildren().addAll(first, second, third, forth);
 		Scene scene = new Scene(root, 300, 250);
 		stage.initOwner(st);
-		stage.setTitle("Äîáàâëåíèå");
+		stage.setTitle("Добавить");
 		stage.setScene(scene);
 		stage.initModality(Modality.WINDOW_MODAL);
-		
 
 	}
-	
-	public void showSecondWindow(ObservableList <Stuff> ob, int ri) {
+
+	public void showSecondWindow(ObservableList<Stuff> ob, int ri) {
+		tempName = "";
+		tempPrice = 0;
+		tempDivide = false;
 		tfName.setText("");
 		tfPrice.setText("");
 		cbDivide.setSelected(false);
+
 		rowInd = ri;
 		stage.show();
 	}
